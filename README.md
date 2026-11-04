@@ -6,6 +6,7 @@ Unifikovaný firmware a PCB pre **diaľkové dopĺňanie vodojemu** cez **EByte 
 
 - **Server** (pri zdroji vody / čerpadle): meria prietok a tlak, spína relé čerpadla, loguje na microSD, zobrazuje stav na OLED a komunikuje s klientom vo vodojeme.
 - **Klient** (vodojem): meria výšku hladiny (QDY30A), číta min/max plaváky, posiela status a šetrí batériu (WOR sleep).
+- **Logovanie a súbor so základným nastavením** - nastavenie naplnenia za deň.
 - **Automatika**: štart pri nízkej hladine (min), stop pri plnom vodojeme (max), denný limit objemu, ochrana podľa tlaku.
 - **Vzdialené príkazy** (UART / tretia strana cez LoRa): `start`, `stop`, `fill <m3>` (načerpať daný objem v m³).
 - **Binárny protokol** s CRC16, rámce do ~64 B (nastavenie E220 `SPS_064`).
@@ -29,7 +30,7 @@ Gerbery na výrobu: [`hardware/gerber/`](hardware/gerber/)
 |------|-------------------------------|--------|
 | MCU | **STM32F411CEU6 Black Pill V3.0** | riadenie, UART LoRa, I²C, SPI SD |
 | Rádio | **LoRa E220 / E32 modul** (`LORAE32…`) | RF 868 MHz komunikácia |
-| Displej | OLED 128×64 (U8G2 SSD1309/podobný) cez I²C | lokalizovaný stav |
+| Displej | OLED 128×64 (U8G2 SSD1309/podobný) cez I²C |TZT2.4" - nutné upraviť rezistory I2C |
 | Batéria / napájanie | meranie cez **INA219** | napätie batérie (server aj klient) |
 | DC/DC | **LM2596S-5.0**, **AMS1117-3.3**, **LM1085S-3.3** | 5 V / 3,3 V regulácia |
 | Relé | **G5LE-1-ASI DC3** + **2N2222A**, **PC817** | spínanie čerpadla (server) |
@@ -42,9 +43,10 @@ Gerbery na výrobu: [`hardware/gerber/`](hardware/gerber/)
 | Senzor | Typ | Pripojenie / poznámka |
 |--------|-----|------------------------|
 | **QDY30A** | výška hladiny (4–20 mA / RS485 Modbus podľa zapojenia) | klient — UART levelmeter, softvér počíta % z cm |
-| **YF-DN50** | prietokomer **10–200 L/min**, napájanie **5–24 V** | server — impulzy na pin **FLOW (PB0)**; softvér: ~12000 impulzov ≈ 1 m³ |
+| **YF-DN50** | prietokomer **10–200 L/min**, napájanie **5–24 V** - pravdepodobne bude nutný rezistor medzi 5V a IN | server — impulzy na pin **FLOW (PB0)**; softvér: ~12000 impulzov ≈ 1 m³ |
 | **Vertikálny plavákový spínač** (plastový) | min / max hladina | klient — **TANK_MIN (PB14)**, **TANK_MAX (PB13)**, `INPUT_PULLUP`, aktívne LOW |
 | **Senzor tlaku G1/4 0–10 MPa** | tlak v potrubí | server — analóg **PRESS (PA1)**; ochrana pri nízkom tlaku |
+
 
 Ďalšie vstupy zo softvéru: **OCHRANA (PB13)** na serveri (ochranný kontakt), **IGNORE / tlačidlo MANUAL (PA8)**, **RELAY (PA9)**.
 

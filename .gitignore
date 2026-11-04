@@ -1,0 +1,17 @@
+# Arduino / build
+build/
+*.hex
+*.bin
+*.elf
+*.map
+.vscode/
+.pio/
+.idea/
+
+# OS / temp
+Thumbs.db
+Desktop.ini
+.DS_Store
+__pycache__/
+*.pyc
+_parse_sch*.py

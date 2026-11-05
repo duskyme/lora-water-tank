@@ -13,7 +13,7 @@ Unifikovaný firmware a PCB pre **diaľkové dopĺňanie vodojemu** cez **EByte 
 
 ### Výber role pred flashom
 
-V `Lora_U8G2_Menu_7_4_k_pia.ino`:
+V `Lora_U8G2_Menu_7_4.ino`:
 
 ```cpp
 #define DEVICE_ROLE ROLE_SERVER   // alebo ROLE_CLIENT

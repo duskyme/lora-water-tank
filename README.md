@@ -42,7 +42,7 @@ Gerbery na výrobu: [`hardware/gerber/`](hardware/gerber/)
 
 | Senzor | Typ | Pripojenie / poznámka |
 |--------|-----|------------------------|
-| **QDY30A** | výška hladiny (4–20 mA / RS485 Modbus podľa zapojenia) | klient — UART levelmeter, softvér počíta % z cm |
+| **QDY30A** | výška hladiny (RS485 Modbus podľa zapojenia) | klient — UART levelmeter, softvér počíta % z cm |
 | **YF-DN50** | prietokomer **10–200 L/min**, napájanie **5–24 V** - pravdepodobne bude nutný rezistor medzi 5V a IN | server — impulzy na pin **FLOW (PB0)**; softvér: ~12000 impulzov ≈ 1 m³ |
 | **Vertikálny plavákový spínač** (plastový) | min / max hladina | klient — **TANK_MIN (PB14)**, **TANK_MAX (PB13)**, `INPUT_PULLUP`, aktívne LOW |
 | **Senzor tlaku G1/4 0–10 MPa** | tlak v potrubí | server — analóg **PRESS (PA1)**; ochrana pri nízkom tlaku |
